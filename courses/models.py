@@ -15,5 +15,16 @@ class Category(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=100)
     lessons_amount = models.IntegerField()
-    course_duration = models.DurationField()
+    duration = models.DurationField()
+    description = models.TextField()
     course_price = models.IntegerField()
+    start_date = models.DateField(null=True, blank=True, default=None)
+
+    category = models.ForeignKey(Category, null=True, blank=True,related_name="courses",on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
