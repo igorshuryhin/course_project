@@ -6,6 +6,7 @@ class Lesson(models.Model):
     name = models.CharField(max_length=255)
     date = models.DateField()
     notes = models.TextField(null=True, blank=True)
+    video = models.URLField(null=True, blank=True)
     homework = models.OneToOneField(Homework, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
