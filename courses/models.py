@@ -15,8 +15,8 @@ class Category(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=100)
     lessons_amount = models.IntegerField()
-    duration = models.DurationField()
-    description = models.TextField()
+    duration = models.CharField(max_length=20)
+    description = models.TextField(blank=True, null=True)
     course_price = models.IntegerField()
     start_date = models.DateField(null=True, blank=True, default=None)
 

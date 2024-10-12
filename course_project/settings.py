@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'profiles',
     'homework',
     'lesson',
+    'vacancies',
+    'awards',
+    'orders',
 ]
 
 MIDDLEWARE = [
