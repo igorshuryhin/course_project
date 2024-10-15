@@ -2,6 +2,12 @@ from django.db import models
 from homework.models import Homework
 
 # Create your models here.
+
+class Attendance(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    lesson = models.ForeignKey('Lesson', on_delete=models.CASCADE)
+    present = models.BooleanField(default=False)
+
 class Lesson(models.Model):
     name = models.CharField(max_length=255)
     date = models.DateField()

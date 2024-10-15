@@ -1,6 +1,11 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+class Grade(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    homework = models.ForeignKey('homework.Homework', on_delete=models.CASCADE)
+    grade = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+
 class Homework(models.Model):
     name = models.CharField(max_length=255)
     deadline = models.DateField()
