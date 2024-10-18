@@ -15,7 +15,7 @@ class Order(models.Model):
     course = models.ManyToManyField(Course, through='OrderCourse')
 
 class OrderCourse(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_courses')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -9,9 +9,9 @@ class OrderCourseSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    order_course = OrderCourseSerializer(many=True)
+    order_courses = OrderCourseSerializer(many=True)
 
     class Meta:
         model = Order
-        fields = ('uuid', 'user', 'order_course', 'created_at')
+        fields = ('uuid', 'user', 'order_courses', 'created_at')
         read_only_fields = ('created_at',)
