@@ -13,7 +13,7 @@ class Lesson(models.Model):
     date = models.DateField()
     notes = models.TextField(null=True, blank=True)
     video = models.URLField(null=True, blank=True)
-    homework = models.OneToOneField(Homework, on_delete=models.CASCADE)
+    homework = models.OneToOneField(Homework, on_delete=models.CASCADE, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
