@@ -20,9 +20,11 @@ from django.urls import path, include
 from rest_framework import routers
 
 from courses.viewsets import CourseViewSet
+from orders.viewsets import OrderViewSet
 
 router = routers.DefaultRouter()
 router.register(r'courses', CourseViewSet)
+router.register(r'orders', OrderViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

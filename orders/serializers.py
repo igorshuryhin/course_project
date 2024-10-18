@@ -1,0 +1,17 @@
+from courses.serializers import CourseSerializer
+from orders.models import Order, OrderCourse
+from rest_framework import serializers
+
+class OrderCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderCourse
+        fields = ('course', 'price')
+
+class OrderSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    order_course = OrderCourseSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ('uuid', 'user', 'order_course', 'created_at')
+        read_only_fields = ('created_at',)
