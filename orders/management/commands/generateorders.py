@@ -11,15 +11,21 @@ class Command(BaseCommand):
 
     def __init__(self):
         super().__init__()
-
         self.fake = faker.Faker()
+        self.existing_usernames = set()
+
+    def generate_unique_username(self):
+        while True:
+            username = self.fake.user_name()
+            if username not in self.existing_usernames:
+                self.existing_usernames.add(username)
+                return username
 
     def create_order(self):
-
-        user = User.objects.create_user(username=self.fake.user_name(), email=self.fake.email())
+        username = self.generate_unique_username()
+        user = User.objects.create_user(username=username, email=self.fake.email())
 
         order = Order.objects.create(user=user)
-        order.created_at = self.fake.date_time()
 
         course_ids = Course.objects.values_list('id', flat=True)
 
