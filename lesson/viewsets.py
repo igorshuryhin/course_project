@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 from lesson.models import Attendance, Lesson
 from lesson.serializers import AttendanceSerializer, LessonSerializer
@@ -20,3 +21,11 @@ class AttendanceViewSet(viewsets.ModelViewSet):
 class LessonViewSet(viewsets.ModelViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+
+    permission_classes = []
+    authentication_classes = []
+
+    filter_backends = [SearchFilter, OrderingFilter]
+
+    search_fields = ['name', 'homework__name']
+    ordering_fields = ['name', 'date']

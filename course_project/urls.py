@@ -22,7 +22,7 @@ from rest_framework.authtoken import views as authtoken_views
 
 from courses.viewsets import CourseViewSet
 from orders.viewsets import OrderViewSet
-from homework.viewsets import HomeworkViewSet, GradeViewSet
+from homework.viewsets import HomeworkViewSet
 from lesson.viewsets import LessonViewSet, AttendanceViewSet
 from awards.viewsets import AwardViewSet
 from vacancies.viewsets import VacancyViewSet
@@ -31,7 +31,6 @@ router = routers.DefaultRouter()
 router.register(r'courses', CourseViewSet)
 router.register(r'orders', OrderViewSet)
 router.register(r'homeworks', HomeworkViewSet)
-router.register(r'grades', GradeViewSet)
 router.register(r'lessons', LessonViewSet)
 router.register(r'attendance', AttendanceViewSet)
 router.register(r'awards', AwardViewSet)

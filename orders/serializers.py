@@ -1,8 +1,9 @@
-from courses.serializers import CourseSerializer
 from orders.models import Order, OrderCourse
 from rest_framework import serializers
 
+
 class OrderCourseSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = OrderCourse
         fields = ('course', 'price')

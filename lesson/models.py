@@ -8,6 +8,8 @@ class Attendance(models.Model):
     lesson = models.ForeignKey('Lesson', on_delete=models.CASCADE)
     present = models.BooleanField(default=False)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+
 class Lesson(models.Model):
     name = models.CharField(max_length=255)
     date = models.DateField()

@@ -1,11 +1,21 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter, OrderingFilter
 
-from homework.models import Homework, Grade
-from homework.serializers import HomeworkSerializer, GradeSerializer
+from homework.filtersets import HomeworkFilterSet
+from homework.models import Homework
+from homework.serializers import HomeworkSerializer
 
-class GradeViewSet(viewsets.ModelViewSet):
-    queryset = Grade.objects.all()
-    serializer_class = GradeSerializer
+
+class HomeworkViewSet(viewsets.ModelViewSet):
+    queryset = Homework.objects.all()
+    serializer_class = HomeworkSerializer
+
+    filterset_class = HomeworkFilterSet
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    search_fields = ('name', 'description')
+    ordering_fields = ('name', 'retakes_amount', 'complexity', 'avg_grade', 'deadline')
 
     def get_queryset(self):
         user = self.request.user
@@ -15,7 +25,3 @@ class GradeViewSet(viewsets.ModelViewSet):
         else:
             return self.queryset.filter(user=self.request.user)
 
-
-class HomeworkViewSet(viewsets.ModelViewSet):
-    queryset = Homework.objects.all()
-    serializer_class = HomeworkSerializer

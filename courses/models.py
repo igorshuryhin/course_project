@@ -20,7 +20,7 @@ class Course(models.Model):
     course_price = models.IntegerField()
     start_date = models.DateField(null=True, blank=True, default=None)
 
-    category = models.ForeignKey(Category, null=True, blank=True,related_name="courses",on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, blank=True,related_name="courses", on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
