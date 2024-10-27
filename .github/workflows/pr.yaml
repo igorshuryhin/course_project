@@ -21,4 +21,6 @@ jobs:
       - name: Run migrations
         run: python manage.py migrate
       - name: Run tests
-        run: python manage.py test
+        run: coverage run manage.py test
+      - name: Check test coverage
+        run: coverage report --fail-under=90
