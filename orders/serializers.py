@@ -3,10 +3,10 @@ from rest_framework import serializers
 
 
 class OrderCourseSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = OrderCourse
         fields = ('course', 'price')
+
 
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())

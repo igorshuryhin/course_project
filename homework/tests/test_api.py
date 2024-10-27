@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from homework.models import Homework, Grade
+from homework.models import Homework
 from homework.serializers import HomeworkSerializer
 
 
