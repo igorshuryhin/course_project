@@ -4,7 +4,6 @@ from homework.models import Homework, Grade
 
 
 class GradeSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Grade
@@ -12,8 +11,8 @@ class GradeSerializer(serializers.ModelSerializer):
 
 
 class HomeworkSerializer(serializers.ModelSerializer):
-    grade = GradeSerializer()
+    grades = GradeSerializer(many=True)
 
     class Meta:
         model = Homework
-        fields = ('name', 'deadline', 'retakes_amount', 'complexity', 'passed_amount', 'avg_grade', 'description', 'grade')
+        fields = ('name', 'deadline', 'retakes_amount', 'complexity', 'passed_amount', 'avg_grade', 'description', 'grades')

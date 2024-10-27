@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
 
-from rest_framework import routers
+from rest_framework import routers, permissions
 from rest_framework.authtoken import views as authtoken_views
 
 from courses.viewsets import CourseViewSet
@@ -26,6 +28,20 @@ from homework.viewsets import HomeworkViewSet
 from lesson.viewsets import LessonViewSet, AttendanceViewSet
 from awards.viewsets import AwardViewSet
 from vacancies.viewsets import VacancyViewSet
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="LMS API",
+      default_version='v1',
+      description="LMS Documentation",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="igor@igor.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
+
 
 router = routers.DefaultRouter()
 router.register(r'courses', CourseViewSet)
@@ -40,4 +56,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-token-auth/', authtoken_views.obtain_auth_token),
+    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

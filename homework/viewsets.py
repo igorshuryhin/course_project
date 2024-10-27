@@ -21,7 +21,6 @@ class HomeworkViewSet(viewsets.ModelViewSet):
         user = self.request.user
 
         if user.is_superuser:
-            return self.queryset
+            return Homework.objects.all()
         else:
-            return self.queryset.filter(user=self.request.user)
-
+            return Homework.objects.filter(grades__user=user).distinct()

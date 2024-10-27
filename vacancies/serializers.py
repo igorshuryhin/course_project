@@ -1,12 +1,7 @@
 from rest_framework import serializers
 
+from courses.serializers import TagSerializer
 from vacancies.models import Vacancy
-
-
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vacancy
-        fields = ('name',)
 
 
 class TypeSerializer(serializers.ModelSerializer):
