@@ -22,6 +22,7 @@ class OrderCourse(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
 @receiver(pre_save, sender=OrderCourse)
 def update_order_price(sender, instance, **kwargs):
     instance.price = instance.course.course_price

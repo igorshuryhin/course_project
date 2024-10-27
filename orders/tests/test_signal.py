@@ -10,6 +10,6 @@ class TestSignal(TestCase):
         course = Course.objects.create(name='test', course_price=12345)
         order = Order.objects.create(user=User.objects.create_user(username='test'))
 
-        ordercourse = OrderCourse.objects.create(order=order, course=course)
+        order_course = OrderCourse.objects.create(order=order, course=course)
 
-        self.assertEqual(ordercourse.price, course.course_price)
+        self.assertEqual(order_course.price, course.course_price)
