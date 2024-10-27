@@ -31,4 +31,4 @@ class Command(BaseCommand):
                 homework=homework
             )
 
-        self.stdout.write(self.style.SUCCESS(f"Successfully created 1000 lessons!"))
+        self.stdout.write(self.style.SUCCESS("Successfully created 1000 lessons!"))

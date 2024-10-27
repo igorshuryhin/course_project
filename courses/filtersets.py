@@ -21,7 +21,7 @@ class CoursesFilterSet(FilterSet):
             queryset = queryset.filter(tags__name__icontains=tag)
         return queryset
 
-    q = CharFilter(method='filter_query', field_name='q',label="Query")
+    q = CharFilter(method='filter_query', field_name='q', label="Query")
 
     def filter_query(self, queryset, name, value):
         return (queryset.filter(name__icontains=value) |

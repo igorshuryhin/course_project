@@ -6,6 +6,7 @@ from vacancies.models import Vacancy, Type, Tag
 admin.site.register(Type)
 admin.site.register(Tag)
 
+
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'type')

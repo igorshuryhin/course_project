@@ -15,4 +15,5 @@ class HomeworkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Homework
-        fields = ('name', 'deadline', 'retakes_amount', 'complexity', 'passed_amount', 'avg_grade', 'description', 'grades')
+        fields = ('name', 'deadline', 'retakes_amount',
+                  'complexity', 'passed_amount', 'avg_grade', 'description', 'grades')
