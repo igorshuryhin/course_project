@@ -103,7 +103,7 @@ POSTGRES_DB = {
     }
 }
 
-DATABASES = SQLITE_DB if os.getenv('USE_SQLITE') == 'True' else POSTGRES_DB
+DATABASES = SQLITE_DB if os.getenv('USE_SQLITE').lower() == 'true' else POSTGRES_DB
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
