@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+
+import dj_database_url
 import dotenv
 
 dotenv.load_dotenv()
@@ -85,14 +87,7 @@ WSGI_APPLICATION = 'course_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-SQLITE_DB = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-POSTGRES_DB = {
+LOCAL_DB = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv("DB_NAME"),
@@ -103,9 +98,22 @@ POSTGRES_DB = {
     }
 }
 
-use_sqlite = os.getenv("USE_SQL") and os.getenv("USE_SQL").lower() == 'true'
+HEROKU_DB = None
+if os.getenv("DATABASE_URL"):
+    HEROKU_DB = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+    }
 
-DATABASES = SQLITE_DB if use_sqlite else POSTGRES_DB
+SQLITE_DB = None
+if os.getenv("USE_SQL") and os.getenv("USE_SQL").lower() == 'true':
+    SQLITE_DB = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+DATABASES = HEROKU_DB or SQLITE_DB or LOCAL_DB
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
