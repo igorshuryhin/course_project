@@ -30,9 +30,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-*krp*b+97usdxd1d+i!*&l65k!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') + ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0:8000', 'http://localhost:8000']
 
 # Application definition
 
@@ -96,7 +96,7 @@ LOCAL_DB = {
         'USER': os.getenv("DB_USER"),
         'PASSWORD': os.getenv("DB_PASSWORD"),
         'HOST': os.getenv("DB_HOST"),
-        'PORT': '5432',
+        'PORT': "5432",
     }
 }
 
@@ -174,6 +174,6 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
-SESSION_COOKIE_AGE = 30
+SESSION_COOKIE_AGE = 90
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
