@@ -175,6 +175,6 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
-SESSION_COOKIE_AGE = 90
+SESSION_COOKIE_AGE = 1200
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
