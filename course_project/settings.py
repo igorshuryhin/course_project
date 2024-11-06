@@ -96,7 +96,7 @@ LOCAL_DB = {
         'NAME': os.getenv("DB_NAME"),
         'USER': os.getenv("DB_USER"),
         'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
+        'HOST': "localhost",
         'PORT': "5432",
     }
 }
@@ -178,3 +178,6 @@ REST_FRAMEWORK = {
 SESSION_COOKIE_AGE = 1200
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")

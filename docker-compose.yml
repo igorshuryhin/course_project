@@ -7,15 +7,20 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+  redis:
+    image: redis:alpine
+    ports:
+      - "63799:6379"
   web:
     build: .
-    command: "gunicorn course_project.wsgi -b 0.0.0.0:8000"
+    command: "gunicorn course_project.wsgi --bind=0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+      - CELERY_BROKER_URL=redis://redis:6379/0
     restart: always
     volumes:
       - .:/app
@@ -27,5 +32,17 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
     restart: "no"
+    volumes:
+      - .:/app
+  celery:
+    build: .
+    command: "celery -A course_project worker"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    restart: always
     volumes:
       - .:/app
