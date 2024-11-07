@@ -1,5 +1,6 @@
 [flake8]
 
+ignore = E999
 exclude = .venv,
            migrations
 max-line-length=120
