@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
 from courses.models import Course
@@ -13,6 +13,13 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     course = models.ManyToManyField(Course, through='OrderCourse')
+
+
+@receiver(post_save, sender=Order)
+def order_create_signal(sender, instance, created, **kwargs):
+    if created:
+        from orders.tasks import send_order_creation_notification
+        send_order_creation_notification.delay(instance.pk)
 
 
 class OrderCourse(models.Model):
