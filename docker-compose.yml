@@ -7,6 +7,8 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    ports:
+      - "54322:5432"
   redis:
     image: redis:alpine
     ports:
@@ -21,6 +23,7 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
+      - TELEGRAM_BOT_TOKEN=7808938876:AAEadpxMVuLP8HRE--9VMFMFQUuHy0YxVEY
     restart: always
     volumes:
       - .:/app
@@ -36,13 +39,14 @@ services:
       - .:/app
   celery:
     build: .
-    command: "celery -A course_project worker"
+    command: "celery -A course_project worker -l info"
     depends_on:
       - db
       - redis
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
+      - TELEGRAM_BOT_TOKEN=7808938876:AAEadpxMVuLP8HRE--9VMFMFQUuHy0YxVEY
     restart: always
     volumes:
       - .:/app
