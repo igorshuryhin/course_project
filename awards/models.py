@@ -20,4 +20,4 @@ class Award(models.Model):
 def create_award(sender, instance, created, **kwargs):
     if created:
         from awards.tasks import send_new_award_notification
-        send_new_award_notification.delay(instance.name)
+        send_new_award_notification.delay(instance.pk)
