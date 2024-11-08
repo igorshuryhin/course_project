@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -12,3 +14,10 @@ class Award(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=Award)
+def create_award(sender, instance, created, **kwargs):
+    if created:
+        from awards.tasks import send_new_award_notification
+        send_new_award_notification.delay(instance.name)

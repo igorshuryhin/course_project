@@ -21,3 +21,6 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderCourseInline]
 
     list_display = ('uuid', 'user')
+
+    fields = ('user', 'total_price')
+    readonly_fields = ('total_price',)

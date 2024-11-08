@@ -1,4 +1,5 @@
 from course_project.celery import app
+from orders.reporter import report_orders, report_order_stats
 from telegram.models import TelegramUserAccount
 from telegram.service import send_message
 
@@ -11,3 +12,13 @@ def send_order_creation_notification(self, order_id):
     send_message(telegram_id, f"Order {order_id} was created!")
 
     return f"Order {order_id} was created!"
+
+
+@app.task(bind=True)
+def update_orders_report(self):
+    report_orders()
+
+
+@app.task(bind=True)
+def update_order_totals_report(self):
+    report_order_stats()

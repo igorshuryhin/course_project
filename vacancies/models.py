@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 # Create your models here.
 
@@ -28,3 +31,10 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=Vacancy)
+def vacancy_create_signal(sender, instance, created, **kwargs):
+    if created:
+        from vacancies.tasks import report_vacancies_on_google_sheets
+        report_vacancies_on_google_sheets.delay()
