@@ -37,16 +37,24 @@ CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Installed apps
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    # All-auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    # My apps
     'courses',
     'profiles',
     'homework',
@@ -66,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'course_project.urls'
@@ -182,3 +191,30 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email',
+            'https://www.googleapis.com/auth/spreadsheets',
+            'https://www.googleapis.com/auth/drive',
+        ],
+        "AUTH_PARAMS": {
+            'access_type': 'offline',
+        }
+    }
+}
+
+# Django all-auth
+SITE_ID = 2
+
+SOCIALACCOUNT_STORE_TOKENS = True
