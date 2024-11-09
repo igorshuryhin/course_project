@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Order Confirmation</title>
+    </head>
+    <body>
+        <h1>Thank you for your order, {{ customer_name }}!</h1>
+        <p>Your order (UUID: {{ order_uuid }}) has been successfully created on {{ order_date }}.</p>
+        <p>Order Details:</p>
+        <ul>
+            {% for course in order_items %}
+                <li>{{ course }}</li>
+            {% endfor %}
+        </ul>
+        <p>Total: ₴{{ total_price }}</p>
+        <p>Warm regards,<br>Your Friendly Team</p>
+    </body>
+</html>

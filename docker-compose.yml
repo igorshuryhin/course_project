@@ -24,6 +24,9 @@ services:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
       - TELEGRAM_BOT_TOKEN=7808938876:AAEadpxMVuLP8HRE--9VMFMFQUuHy0YxVEY
+      - SENDGRID_USERNAME=apikey
+      - SENDGRIP_PASSWORD=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
+
     restart: always
     volumes:
       - .:/app

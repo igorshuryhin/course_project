@@ -1,4 +1,5 @@
 from course_project.celery import app
+from orders.emails import send_html_email
 from orders.reporter import report_orders, report_order_stats
 from telegram.models import TelegramUserAccount
 from telegram.service import send_message
@@ -22,3 +23,13 @@ def update_orders_report(self):
 @app.task(bind=True)
 def update_order_totals_report(self):
     report_order_stats()
+
+
+@app.task(bind=True)
+def send_order_creation_email(self, customer_name, order_id, order_courses, total_price):
+    print(f"Sending email for Order ID {order_id}")
+    print(f"Customer: {customer_name}")
+    print(f"Courses: {order_courses}")  # List of course IDs or names
+    print(f"Total Price: {total_price}")
+
+    send_html_email(customer_name, order_id, order_courses, total_price)
