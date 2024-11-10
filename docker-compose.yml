@@ -23,9 +23,6 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
-      - TELEGRAM_BOT_TOKEN=7808938876:AAEadpxMVuLP8HRE--9VMFMFQUuHy0YxVEY
-      - SENDGRID_USERNAME=apikey
-      - SENDGRID_PASSWORD=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
 
     restart: always
     volumes:
@@ -49,7 +46,7 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
-      - TELEGRAM_BOT_TOKEN=7808938876:AAEadpxMVuLP8HRE--9VMFMFQUuHy0YxVEY
+
     restart: always
     volumes:
       - .:/app
