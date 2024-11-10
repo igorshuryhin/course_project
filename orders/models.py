@@ -1,5 +1,5 @@
 import uuid
-from django.db import models, transaction
+from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
@@ -26,7 +26,7 @@ class Order(models.Model):
         # Send order creation email notification
         from orders.tasks import send_order_creation_email
         course_list = [order_course.course.name for order_course in self.order_courses.all()]
-        send_order_creation_email.delay(self.user.username, self.pk, course_list, self.total_price)
+        send_order_creation_email.delay(self.user.username, self.user.email, self.pk, course_list, self.total_price)
 
 
 @receiver(post_save, sender=Order)

@@ -26,10 +26,10 @@ def update_order_totals_report(self):
 
 
 @app.task(bind=True)
-def send_order_creation_email(self, customer_name, order_id, order_courses, total_price):
+def send_order_creation_email(self, customer_name, customer_email, order_id, order_courses, total_price):
     print(f"Sending email for Order ID {order_id}")
     print(f"Customer: {customer_name}")
     print(f"Courses: {order_courses}")  # List of course IDs or names
     print(f"Total Price: {total_price}")
 
-    send_html_email(customer_name, order_id, order_courses, total_price)
+    send_html_email(customer_name, customer_email, order_id, order_courses, total_price)

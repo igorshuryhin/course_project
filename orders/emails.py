@@ -4,7 +4,7 @@ from django.utils.html import strip_tags
 from django.utils import timezone
 
 
-def send_html_email(customer_name, order_id, order_courses, total_price):
+def send_html_email(customer_name, customer_email, order_id, order_courses, total_price):
     subject = 'Order Confirmation'
     order_date = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -28,7 +28,7 @@ def send_html_email(customer_name, order_id, order_courses, total_price):
             subject,
             message=plain_message,
             from_email='shurigin.igor12@gmail.com',
-            recipient_list=['1235678surygm8v@gmail.com'],
+            recipient_list=[customer_email],
             html_message=html_content,
         )
         print(customer_name, order_id, order_courses, total_price)
