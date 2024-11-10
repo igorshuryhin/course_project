@@ -26,7 +26,7 @@ class Command(BaseCommand):
             category = Category.objects.order_by("?").first()
             price = random.randint(13000, 20000)
             lessons = random.randint(16, 40)
-            duration = f"{int(lessons/8)} months"
+            duration = f"{int(lessons / 8)} months"
             courses_list.append(category.courses.create(name=name, course_price=price,
                                                         lessons_amount=lessons, duration=duration))
 

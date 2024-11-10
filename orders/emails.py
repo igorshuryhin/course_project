@@ -35,4 +35,3 @@ def send_html_email(customer_name, customer_email, order_id, order_courses, tota
         print("Email sent successfully!")
     except Exception as e:
         print(f"Error sending email: {e}")
-

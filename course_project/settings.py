@@ -221,12 +221,12 @@ SITE_ID = 2
 SOCIALACCOUNT_STORE_TOKENS = True
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_PASSWORD") # this is your API key
+EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_PASSWORD")  # this is your API key
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'shurigin.igor12@gmail.com' # this is the sendgrid email
+DEFAULT_FROM_EMAIL = 'shurigin.igor12@gmail.com'  # this is the sendgrid email
 
 GRAPHENE = {
     "SCHEMA": "course_project.schema.schema"
@@ -253,4 +253,3 @@ LOGGING = {
         }
     }
 }
-
