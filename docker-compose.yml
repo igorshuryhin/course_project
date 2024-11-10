@@ -25,7 +25,7 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - TELEGRAM_BOT_TOKEN=7808938876:AAEadpxMVuLP8HRE--9VMFMFQUuHy0YxVEY
       - SENDGRID_USERNAME=apikey
-      - SENDGRIP_PASSWORD=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
+      - SENDGRID_PASSWORD=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
 
     restart: always
     volumes:
