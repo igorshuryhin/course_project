@@ -20,7 +20,7 @@ def set_webhook():
     resp = requests.post(
         f"https://api.telegram.org/bot{os.getenv("TELEGRAM_BOT_TOKEN")}/setWebhook",
         json={
-            "url": "https://456d-195-248-162-253.ngrok-free.app/telegram"
+            "url": "https://course-project1-6c1dd4c7ffb9.herokuapp.com/telegram"
         }
     )
 

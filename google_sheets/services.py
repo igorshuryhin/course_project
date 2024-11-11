@@ -14,15 +14,17 @@ scope = [
 # Load credentials from environment variables
 client_email = os.getenv("GOOGLE_CLIENT_EMAIL")
 private_key = os.getenv("GOOGLE_PRIVATE_KEY").replace('\\n', '\n')  # replace \n with newline
+client_id = os.getenv("GOOGLE_CLIENT_ID")
+private_key_id = os.getenv("PRIVATE_KEY_ID")
 
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(
     {
         "type": "service_account",
-        "project_id": "your_project_id",
-        "private_key_id": "your_private_key_id",
+        "project_id": "course-project-441021",
+        "private_key_id": private_key_id,
         "private_key": private_key,
         "client_email": client_email,
-        "client_id": "your_client_id",
+        "client_id": client_id,
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
         "token_uri": "https://oauth2.googleapis.com/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
@@ -48,27 +50,25 @@ def read_from_sheet(sheet_id):
 def write_to_sheet(range, data, spreadsheet_id=SPREADSHEET_ID):
     client = get_google_sheets_client()
     spreadsheet = client.open_by_key(spreadsheet_id)
-
-    return spreadsheet.values_update(
-        range,
-        params={'valueInputOption': 'RAW'},
-        body={'values': data},
-    )
+    sheet = spreadsheet.sheet1  # specify the sheet you want to write to
+    return sheet.update(range, data)
 
 
 def bulk_write_to_sheet(sheet_id, data):
     client = get_google_sheets_client()
     spreadsheet = client.open_by_key(sheet_id)
-    sheet = spreadsheet.sheet1  # or you can specify the sheet you want to write to
 
-    # Write to multiple ranges
-    request_data = []
+    # Use batch_update with the correct structure
+    request_data = {
+        "valueInputOption": "RAW",
+        "data": [
+            {
+                "range": range_name,
+                "majorDimension": "ROWS",  # or 'COLUMNS' if you prefer
+                "values": values
+            } for range_name, values in data.items()
+        ]
+    }
 
-    for range_name, values in data.items():
-        request_data.append({
-            'range': range_name,
-            'majorDimension': 'ROWS',  # or 'COLUMNS' if you prefer
-            'values': values
-        })
+    return spreadsheet.batch_update(request_data)
 
-    return sheet.batch_update(request_data)

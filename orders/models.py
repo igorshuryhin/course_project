@@ -33,9 +33,10 @@ class Order(models.Model):
 def order_create_signal(sender, instance, created, **kwargs):
     if created:
         from orders.tasks import send_order_creation_notification, update_orders_report, update_order_totals_report
-        send_order_creation_notification.delay(instance.pk)
+        send_order_creation_notification.delay(instance.pk, instance.user.id)
         update_orders_report.delay()
         update_order_totals_report.delay()
+        Timer(2.0, delayed_finalize, [instance]).start()
 
 
 class OrderCourse(models.Model):
@@ -59,9 +60,6 @@ def update_order_total_price(sender, instance, created, **kwargs):
         order_total_price = sum(order_course.price for order_course in order.order_courses.all())
         order.total_price = order_total_price
         order.save()
-
-        # Start a delayed call to finalize the order
-        Timer(2.0, delayed_finalize, [order]).start()
 
 
 @receiver(pre_save, sender=OrderCourse)
