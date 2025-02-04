@@ -112,9 +112,9 @@ LOCAL_DB = {
     }
 }
 
-HEROKU_DB = None
+VERCEL_DB = None
 if os.getenv("DATABASE_URL"):
-    HEROKU_DB = {
+    VERCEL_DB = {
         'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
 
@@ -127,7 +127,7 @@ if os.getenv("USE_SQL") and os.getenv("USE_SQL").lower() == 'true':
         }
     }
 
-DATABASES = HEROKU_DB or SQLITE_DB or LOCAL_DB
+DATABASES = VERCEL_DB or SQLITE_DB or LOCAL_DB
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
