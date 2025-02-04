@@ -11,10 +11,5 @@
       "src": "/(.*)",
       "dest": "course_project/wsgi.py"
     }
-  ],
-  "functions": {
-    "api/course_project/**/*.py": {
-      "runtime": "python3.9"
-    }
-  }
+  ]
 }
