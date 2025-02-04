@@ -13,7 +13,7 @@
     }
   ],
   "functions": {
-    "api/*.py": {
+    "api/course_project/**/*.py": {
       "runtime": "python3.9"
     }
   }
