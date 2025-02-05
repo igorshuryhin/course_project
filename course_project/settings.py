@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_filters',
     "graphene_django",
     'storages',
+    'whitenoise.runserver_nostatic',
     # All-auth
     'allauth',
     'allauth.account',
