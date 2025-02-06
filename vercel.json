@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "course_project/wsgi.py",
+      "src": "server.py",
       "use": "@vercel/python",
       "config": { "runtime": "python3.12" }
     }
@@ -14,7 +14,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "course_project/wsgi.py"
+      "dest": "server.py"
     }
   ],
   "buildCommand": "pip install -r requirements.txt && python3 manage.py collectstatic --noinput"
