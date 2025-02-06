@@ -4,14 +4,7 @@
     {
       "src": "course_project/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
-    },
-    {
-      "src": "build_files.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "staticfiles_build"
-      }
+      "config": { "runtime": "python3.12" }
     }
   ],
   "routes": [
@@ -23,5 +16,6 @@
       "src": "/(.*)",
       "dest": "course_project/wsgi.py"
     }
-  ]
+  ],
+  "buildCommand": "pip install -r requirements.txt && python3 manage.py collectstatic --noinput"
 }
